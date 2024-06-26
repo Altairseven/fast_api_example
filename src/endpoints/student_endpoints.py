@@ -16,7 +16,7 @@ def get_students(_db: dbContext):
     mapped = [StudentDto(**s.__dict__) for s in studentsList]
     return mapped
 
-@studentEndpoints.get("/<id>",
+@studentEndpoints.get("/{studentId}",
     status_code=status.HTTP_200_OK,
     response_model=StudentDto, summary="Get studenty by Id")
 def get_student(studentId: int, _db: dbContext):
@@ -57,7 +57,7 @@ def update_student(student: StudentDto, _db: dbContext):
     _db.refresh(en)
     return student
 
-@studentEndpoints.patch("/<id>/course/<cursito>",
+@studentEndpoints.patch("/{studentId}/course/{cursito}}",
     status_code=status.HTTP_200_OK,
     response_model=StudentDto, summary="Update current course for a student")
 def update_current_course(studentId: int, cursito: str, _db: dbContext):
@@ -69,7 +69,7 @@ def update_current_course(studentId: int, cursito: str, _db: dbContext):
     _db.refresh(en)
     return StudentDto(**en.__dict__)
 
-@studentEndpoints.delete("/<studentId>", \
+@studentEndpoints.delete("/{studentId}", \
     status_code=status.HTTP_204_NO_CONTENT,
     summary="Delete a Student")
 def delete_student(studentId: int, _db: dbContext):
